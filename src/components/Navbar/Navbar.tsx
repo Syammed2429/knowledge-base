@@ -25,16 +25,20 @@ export const Navbar: FC = () => {
                 >Everything you need to Manage your Messaging</Text>
                 <InputGroup
                     w='720px'
-                    h='60px'
                     mt='25'
                 >
                     <Input
+                        h='60px'
                         borderRadius='1px'
                         type="text"
                         placeholder="Search for answers"
                     />
                     <InputRightAddon
                         bg='#03a84e'
+                        h='60px'
+                        w='80px'
+                        display='flex'
+                        justifyContent='center'
                     >
                         <Image src={searchIcon} />
                     </InputRightAddon>
