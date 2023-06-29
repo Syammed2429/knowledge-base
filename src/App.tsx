@@ -17,7 +17,7 @@ function App() {
           rel="noopener noreferrer"
         > */}
         <p>
-          Learn React
+          articles
 
         </p>
         {/* </a> */}
