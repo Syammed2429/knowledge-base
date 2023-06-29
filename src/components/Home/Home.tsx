@@ -3,18 +3,9 @@ import { CardComponent } from "../../reusable/CardComponent/CardComponent";
 import data from '../../assets/data/data.json'
 import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Category } from "../../interface/Interface";
 
-interface Category {
-    id: string;
-    title: string;
-    description: string;
-    createdOn: string;
-    updatedOn: string;
-    enabled: boolean;
-    order: number;
-    icon: string;
-    totalArticle: number;
-}
+
 
 export const Home = () => {
     const categories = data.categories;
