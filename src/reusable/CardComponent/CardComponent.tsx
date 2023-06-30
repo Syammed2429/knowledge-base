@@ -21,7 +21,6 @@ export const CardComponent = (cardOptions: CardOptions) => {
                                 objectFit="contain"
                                 src={cardOptions.icon}
                             />
-                            {cardOptions.icon}
                         </Center>
                         <Text
                             fontWeight='700'
