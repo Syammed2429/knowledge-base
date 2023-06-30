@@ -44,6 +44,8 @@ export const Navbar: FC = () => {
                     </InputRightAddon>
 
                 </InputGroup>
+
+
             </Box>
         </>
     );

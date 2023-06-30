@@ -1,8 +1,8 @@
 export interface CardOptions {
-    image?: string;
+    icon?: string;
     title?: string;
-    articleNumber?: number;
-    lastUpdated?: string;
+    totalArticle?: number;
+    updateTime?: string;
 
 
 }
@@ -17,4 +17,16 @@ export interface Category {
     order: number;
     icon: string;
     totalArticle: number;
+}
+
+
+export interface ArticleInterface {
+    id?: string;
+    title?: string;
+    createdOn?: string;
+    updatedOn?: string;
+    content?: string;
+    icon?: string;
+    authorId?: string;
+    status?: string;
 }

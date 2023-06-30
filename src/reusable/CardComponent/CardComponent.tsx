@@ -9,6 +9,8 @@ export const CardComponent = (cardOptions: CardOptions) => {
 
                 flexDirection="column" alignItems="center">
                 <Card
+                    border='1px solid #EEEEEE'
+
                 >
                     <CardBody
                         mb='-5'
@@ -17,8 +19,9 @@ export const CardComponent = (cardOptions: CardOptions) => {
                             <Image
                                 boxSize="50px"
                                 objectFit="contain"
-                                src={cardOptions.image}
+                                src={cardOptions.icon}
                             />
+                            {cardOptions.icon}
                         </Center>
                         <Text
                             fontWeight='700'
@@ -37,10 +40,10 @@ export const CardComponent = (cardOptions: CardOptions) => {
                             color='#03A84E'
                             fontWeight='500'
 
-                        >{cardOptions.articleNumber} articles</Text>
+                        >{cardOptions.totalArticle} articles</Text>
                         <Text
                             color='#9C9AA6'
-                        >Last updated {cardOptions.lastUpdated} days ago</Text>
+                        >Last updated {cardOptions.updateTime}</Text>
                     </CardFooter>
                 </Card>
             </Flex>
