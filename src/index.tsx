@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 import { ChakraProvider, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store/store'
+
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -19,11 +22,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 

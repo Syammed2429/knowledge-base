@@ -30,3 +30,17 @@ export interface ArticleInterface {
     authorId?: string;
     status?: string;
 }
+
+
+export interface CardInterface {
+    id: string;
+    title: string;
+    description: string;
+    createdOn: string;
+    updatedOn: string;
+    enabled: boolean;
+    order: number;
+    icon: string;
+    totalArticle: number;
+    updateTime: string;
+}

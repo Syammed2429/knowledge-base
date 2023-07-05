@@ -1,8 +1,17 @@
 import { Box, Image, Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import searchIcon from '../../assets/icons/search.svg'
+import { setSearchQuery } from "../../store/searchSlice";
 
 export const Navbar: FC = () => {
+    const dispatch = useDispatch();
+
+
+    const handleSearch = (event: { target: { value: any; }; }) => {
+        const searchQuery = event.target.value;
+        dispatch(setSearchQuery(searchQuery));
+    };
     return (
         <>
             <Box
@@ -32,6 +41,9 @@ export const Navbar: FC = () => {
                         borderRadius='1px'
                         type="text"
                         placeholder="Search for answers"
+                        onChange={handleSearch}
+
+
                     />
                     <InputRightAddon
                         bg='#03a84e'

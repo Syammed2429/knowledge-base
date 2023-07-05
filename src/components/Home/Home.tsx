@@ -5,20 +5,46 @@ import { Center, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Category } from "../../interface/Interface";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { setJSONData } from '../../store/JSONSlice'
+import { setUpdatedData } from '../../store/UpdatedJSONSlice'
 
 
+interface UpdatedCategory {
+    updateTime: string;
+    id: string;
+    title: string;
+    description: string;
+    createdOn: string;
+    updatedOn: string;
+    enabled: boolean;
+    order: number;
+    icon: string;
+    totalArticle: number;
+}
+
+interface AppState {
+    updatedCategories: UpdatedCategory[];
+}
 
 export const Home = () => {
-    const categories = data.categories;
+    const dispatch = useDispatch();
     const [enabledCategories, setEnabledCategories] = useState<Category[]>([]);
-    const navigate = useNavigate()
+    const [originalCategories, setOriginalCategories] = useState<Category[]>([]);
 
+    const navigate = useNavigate();
+    const searchQuery = useSelector((state: RootState) => state.search);
+    const jsonData = useSelector((state: RootState) => state.Json);
     useEffect(() => {
+
+        dispatch(setJSONData(data))
+
+
         const currentDate = new Date(); // Current date
 
-        const filteredCategory = categories?.filter((el) => el.enabled === true);
+        const filteredCategory = jsonData.categories?.filter((el) => el.enabled === true);
         const sortedData = [...filteredCategory].sort((a, b) => a.order - b.order);
-
 
         const updatedCategories = sortedData.map((category) => {
             const updatedOn = new Date(category.updatedOn);
@@ -39,16 +65,27 @@ export const Home = () => {
                 updateTime,
             };
         });
-        setEnabledCategories(updatedCategories);
+        const updatedCategoriesData: AppState = {
+            updatedCategories: updatedCategories, // Replace `updatedCategories` with the actual array value
+        };
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+        dispatch(setUpdatedData(updatedCategoriesData))
+        setEnabledCategories(updatedCategories);
+        setOriginalCategories(updatedCategories);
+
+
+    }, [dispatch, jsonData]);
 
     useEffect(() => {
-        console.log('enabledCategories:', enabledCategories)
-
-    });
-
+        if (searchQuery) {
+            const data = originalCategories.filter((el) => el.title.toLowerCase().includes(searchQuery.toLowerCase()));
+            setEnabledCategories(data);
+        } else {
+            // Reset back to the original data when the search query is empty
+            setEnabledCategories(originalCategories);
+        }
+    }, [searchQuery, originalCategories]);
 
     return (
         <>

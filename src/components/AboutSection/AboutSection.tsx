@@ -4,20 +4,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import nextIcon from '../../assets/icons/smallIcon.svg'
 import { Article } from "../../reusable/Article/Article";
 import { CardComponent } from "../../reusable/CardComponent/CardComponent";
+import { ArticleInterface, CardInterface, Category } from "../../interface/Interface";
 import dataJSON from '../../assets/data/data.json'
-import { ArticleInterface, Category } from "../../interface/Interface";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 export const AboutSection = () => {
     const navigate = useNavigate();
     const articles = dataJSON;
     const [articlesData, setArticlesData] = useState<ArticleInterface[]>([]);
+    const [originalCategories, setOriginalCategories] = useState<ArticleInterface[]>([]);
+
     const [cardData, setCardData] = useState<Category | undefined>(undefined)
     const { id } = useParams();
 
+    const searchQuery = useSelector((state: RootState) => state.search);
+    const updatedData = useSelector((state: RootState) => state.updatedCategories)
+
     useEffect(() => {
         const onlyPublished = articles.articles.filter((el) => el.status === 'published');
-        const getData = articles.categories.find((el) => el.title === id)
-        setCardData(getData)
 
         const formattedArticles = onlyPublished.map(article => {
             const updatedOnDate = new Date(article.updatedOn);
@@ -32,8 +37,46 @@ export const AboutSection = () => {
                 updatedOn: formattedUpdatedOn
             };
         });
-        setArticlesData(formattedArticles)
-    }, [articles.articles, articles.categories, id]);
+
+        const currentDate = new Date(); // Current date
+
+        const updatedCategories: CardInterface[] = articles.categories?.map((category) => {
+            const updatedOn = new Date(category.updatedOn);
+            const timeDiff = currentDate.getTime() - updatedOn.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            const weeksDiff = Math.floor(daysDiff / 7);
+
+            let updateTime = '';
+
+            if (daysDiff < 7) {
+                updateTime = `${daysDiff} ${daysDiff === 1 ? 'day' : 'days'}`;
+            } else {
+                updateTime = `${weeksDiff} ${weeksDiff === 1 ? 'week' : 'weeks'}`;
+            }
+
+            return {
+                ...category,
+                updateTime,
+            };
+        });
+
+        const getData = updatedCategories.find((el) => el.title === id);
+        setCardData(getData);
+        setArticlesData(formattedArticles);
+        setOriginalCategories(formattedArticles);
+
+    }, [id]);
+
+    useEffect(() => {
+        if (searchQuery) {
+            const data = articlesData?.filter((el) => el.title?.toLowerCase().includes(searchQuery.toLowerCase()));
+
+            // const data = articlesData?.find((el) => el.title?.toLowerCase().includes(searchQuery));
+            setArticlesData(data)
+        } else {
+            setArticlesData(originalCategories);
+        }
+    }, [articlesData, searchQuery]);
 
     return (
         <>
@@ -53,18 +96,14 @@ export const AboutSection = () => {
                     </Flex>
 
                     <SimpleGrid
-                        // w='55rem'
-                        // minChildWidth='10rem'
                         justifyItems='start'
                         columns={{ lg: 2 }}
-                    // spacing='-55rem'
                     >
                         <Box>
                             <CardComponent {...cardData} />
                         </Box>
                         <VStack
                             ml={'-6rem'}
-                        // key={article.id}
                         >
                             {articlesData?.map((article) => (
                                 <Box key={article.id}>
@@ -76,6 +115,19 @@ export const AboutSection = () => {
 
 
                     </SimpleGrid>
+                    <Box
+                        mt='5rem'
+                        mb={8}
+                    >
+                        <Box
+                            // w='95vw'
+                            border='.85px solid #EEEEEE'
+                            my='2rem'
+                        ></Box>
+                        <Text textAlign='center'>
+                            Other Categories
+                        </Text>
+                    </Box>
                 </Box>
             </Center>
         </>
