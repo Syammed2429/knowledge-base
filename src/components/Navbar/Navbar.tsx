@@ -20,6 +20,7 @@ export const Navbar: FC = () => {
                 flexDirection='column'
                 alignItems='center'
                 mt='54px'
+                mb='5rem'
             >
 
                 <Text
