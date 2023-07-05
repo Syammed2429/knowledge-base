@@ -23,21 +23,21 @@ export const Navbar: FC = () => {
             >
 
                 <Text
-                    fontSize='34px'
+                    fontSize={{ base: 'md', md: 'md', lg: '34px' }}
                     fontWeight={700}
                     lineHeight='40.8px'
                 >Knowledge base doesnt' have to be boring</Text>
                 <Text
-                    fontSize='20px'
+                    fontSize={{ base: 'sm', md: 'sm', lg: '20px' }}
                     fontWeight={400}
                     lineHeight='24px'
                 >Everything you need to Manage your Messaging</Text>
                 <InputGroup
-                    w='720px'
+                    w={{ base: '20rem', md: 'md', lg: '720px' }}
                     mt='25'
                 >
                     <Input
-                        h='60px'
+                        h={{ base: '3rem', md: '3rem', lg: '60px' }}
                         borderRadius='1px'
                         type="text"
                         placeholder="Search for answers"
@@ -47,7 +47,7 @@ export const Navbar: FC = () => {
                     />
                     <InputRightAddon
                         bg='#03a84e'
-                        h='60px'
+                        h={{ base: '3rem', md: '3rem', lg: '60px' }}
                         w='80px'
                         display='flex'
                         justifyContent='center'
