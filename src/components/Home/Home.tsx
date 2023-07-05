@@ -48,9 +48,9 @@ export const Home = () => {
 
         const updatedCategories = sortedData.map((category) => {
             const updatedOn = new Date(category.updatedOn);
-            const timeDiff = currentDate.getTime() - updatedOn.getTime(); // Time difference in milliseconds
-            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
-            const weeksDiff = Math.floor(daysDiff / 7); // Convert days to weeks
+            const timeDiff = currentDate.getTime() - updatedOn.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            const weeksDiff = Math.floor(daysDiff / 7);
 
             let updateTime = '';
 
@@ -66,10 +66,11 @@ export const Home = () => {
             };
         });
         const updatedCategoriesData: AppState = {
-            updatedCategories: updatedCategories, // Replace `updatedCategories` with the actual array value
+            updatedCategories: updatedCategories,
         };
 
 
+        console.log('updatedCategoriesData:', updatedCategoriesData)
         dispatch(setUpdatedData(updatedCategoriesData))
         setEnabledCategories(updatedCategories);
         setOriginalCategories(updatedCategories);
@@ -102,11 +103,7 @@ export const Home = () => {
                             onClick={() => navigate(`about/${el.title}`)}
 
                         >
-
-                            <CardComponent
-
-
-                                {...el} />
+                            <CardComponent {...el} />
                         </div>
                     ))}
                 </SimpleGrid>

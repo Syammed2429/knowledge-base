@@ -3,6 +3,9 @@ export interface CardOptions {
     title?: string;
     totalArticle?: number;
     updateTime?: string;
+    info?: boolean;
+    description?: string;
+    infoIcon?: string;
 
 
 }

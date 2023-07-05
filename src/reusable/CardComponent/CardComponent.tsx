@@ -1,4 +1,4 @@
-import { Card, CardBody, CardFooter, Center, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardFooter, Center, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import { CardOptions } from "../../interface/Interface";
 
 export const CardComponent = (cardOptions: CardOptions) => {
@@ -7,7 +7,10 @@ export const CardComponent = (cardOptions: CardOptions) => {
         >
             <Flex justify="center"
 
-                flexDirection="column" alignItems="center">
+                flexDirection="column"
+                alignItems="center"
+            // textAlign='center'
+            >
                 <Card
                     border='1px solid #EEEEEE'
 
@@ -27,7 +30,9 @@ export const CardComponent = (cardOptions: CardOptions) => {
                             fontSize='20px'
                             lineHeight='24px'
                             width='250px'
-                            textAlign="center">{cardOptions.title}</Text>
+                            textAlign='center'
+                        // textAlign="center"
+                        >{cardOptions.title}</Text>
                     </CardBody>
                     <CardFooter
                         mb={3}
@@ -43,6 +48,26 @@ export const CardComponent = (cardOptions: CardOptions) => {
                         <Text
                             color='#9C9AA6'
                         >Last updated {cardOptions.updateTime}</Text>
+
+                        {cardOptions.info &&
+                            <Box display='flex'
+                                flexDirection='column'
+                                alignItems="center"
+                                my='4'
+                            >
+                                <Divider my='5' />
+                                <Image
+
+                                    boxSize="20px"
+                                    objectFit="contain"
+                                    src={cardOptions.infoIcon} />
+
+                                <Text textAlign='center'
+                                    w='15rem'
+                                >{cardOptions.description}</Text>
+                            </Box>
+
+                        }
                     </CardFooter>
                 </Card>
             </Flex>

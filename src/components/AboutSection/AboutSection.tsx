@@ -8,6 +8,7 @@ import { ArticleInterface, CardInterface, Category } from "../../interface/Inter
 import dataJSON from '../../assets/data/data.json'
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import infoIconSVG from '../../assets/icons/info.svg'
 
 export const AboutSection = () => {
     const navigate = useNavigate();
@@ -19,7 +20,6 @@ export const AboutSection = () => {
     const { id } = useParams();
 
     const searchQuery = useSelector((state: RootState) => state.search);
-    const updatedData = useSelector((state: RootState) => state.updatedCategories)
 
     useEffect(() => {
         const onlyPublished = articles.articles.filter((el) => el.status === 'published');
@@ -57,6 +57,9 @@ export const AboutSection = () => {
             return {
                 ...category,
                 updateTime,
+                info: true,
+                infoIcon: infoIconSVG
+
             };
         });
 
@@ -65,17 +68,17 @@ export const AboutSection = () => {
         setArticlesData(formattedArticles);
         setOriginalCategories(formattedArticles);
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     useEffect(() => {
         if (searchQuery) {
             const data = articlesData?.filter((el) => el.title?.toLowerCase().includes(searchQuery.toLowerCase()));
-
-            // const data = articlesData?.find((el) => el.title?.toLowerCase().includes(searchQuery));
             setArticlesData(data)
         } else {
             setArticlesData(originalCategories);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [articlesData, searchQuery]);
 
     return (
@@ -83,7 +86,9 @@ export const AboutSection = () => {
             <Center>
                 <Box
                 >
-                    <Flex alignItems="baseline" my={8}>
+                    <Flex
+                        alignItems="baseline" my={8}
+                    >
                         <Text
                             color="#03a84e"
                             onClick={() => navigate('/')}
@@ -91,22 +96,25 @@ export const AboutSection = () => {
                         >
                             All Categories
                         </Text>
-                        <Image mx={2} color="red" src={nextIcon} />
+                        <Image
+                            mx={2}
+                            color="red" src={nextIcon} />
                         <Text>{id}</Text>
                     </Flex>
 
                     <SimpleGrid
                         justifyItems='start'
-                        columns={{ lg: 2 }}
+                        columns={{ base: 1, md: 1, lg: 2 }}
                     >
                         <Box>
                             <CardComponent {...cardData} />
                         </Box>
                         <VStack
-                            ml={'-6rem'}
+                            ml={{ base: '0', md: '0', lg: '-6rem' }}
                         >
                             {articlesData?.map((article) => (
-                                <Box key={article.id}>
+                                <Box key={article.id}
+                                >
                                     <Article {...article} />
                                 </Box>
 
@@ -120,7 +128,6 @@ export const AboutSection = () => {
                         mb={8}
                     >
                         <Box
-                            // w='95vw'
                             border='.85px solid #EEEEEE'
                             my='2rem'
                         ></Box>
