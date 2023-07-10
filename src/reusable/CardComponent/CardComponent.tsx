@@ -38,11 +38,12 @@ export const CardComponent = (cardOptions: CardOptions) => {
                         flexDirection='column'
                         alignItems="center"
                     >
+
                         <Text
                             color='#03A84E'
                             fontWeight='500'
 
-                        >{cardOptions.totalArticle} articles</Text>
+                        >{!cardOptions.info ? `${cardOptions.totalArticle} articles` : ''} </Text>
                         <Text
                             color='#9C9AA6'
                         >Last updated {cardOptions.updateTime}</Text>
@@ -62,6 +63,7 @@ export const CardComponent = (cardOptions: CardOptions) => {
 
                                 <Text textAlign='center'
                                     w='15rem'
+                                    opacity='0.6'
                                 >{cardOptions.description}</Text>
                             </Box>
 
