@@ -9,7 +9,6 @@ export const CardComponent = (cardOptions: CardOptions) => {
 
                 flexDirection="column"
                 alignItems="center"
-            // textAlign='center'
             >
                 <Card
                     border='1px solid #EEEEEE'
@@ -31,7 +30,6 @@ export const CardComponent = (cardOptions: CardOptions) => {
                             lineHeight='24px'
                             width='250px'
                             textAlign='center'
-                        // textAlign="center"
                         >{cardOptions.title}</Text>
                     </CardBody>
                     <CardFooter

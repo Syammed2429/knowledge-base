@@ -84,8 +84,17 @@ export const AboutSection = () => {
     return (
         <>
             <Center>
+
                 <Box
                 >
+                    {!articlesData.length ? (
+
+                        <div className="no-data-card">
+                            No articles found.
+                        </div>
+                    ) : null
+
+                    }
                     <Flex
                         alignItems="baseline" my={8}
                     >
@@ -112,6 +121,7 @@ export const AboutSection = () => {
                         <VStack
                             ml={{ base: '0', md: '0', lg: '-6rem' }}
                         >
+
                             {articlesData?.map((article) => (
                                 <Box key={article.id}
                                 >
@@ -123,18 +133,6 @@ export const AboutSection = () => {
 
 
                     </SimpleGrid>
-                    <Box
-                        mt='5rem'
-                        mb={8}
-                    >
-                        <Box
-                            border='.85px solid #EEEEEE'
-                            my='2rem'
-                        ></Box>
-                        <Text textAlign='center'>
-                            Other Categories
-                        </Text>
-                    </Box>
                 </Box>
             </Center>
         </>

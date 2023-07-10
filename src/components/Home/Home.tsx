@@ -1,9 +1,9 @@
 import { CardComponent } from "../../reusable/CardComponent/CardComponent";
 
 import data from '../../assets/data/data.json'
-import { Center, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Category } from "../../interface/Interface";
+import { AppState, Category } from "../../interface/Interface";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
@@ -11,22 +11,6 @@ import { setJSONData } from '../../store/JSONSlice'
 import { setUpdatedData } from '../../store/UpdatedJSONSlice'
 
 
-interface UpdatedCategory {
-    updateTime: string;
-    id: string;
-    title: string;
-    description: string;
-    createdOn: string;
-    updatedOn: string;
-    enabled: boolean;
-    order: number;
-    icon: string;
-    totalArticle: number;
-}
-
-interface AppState {
-    updatedCategories: UpdatedCategory[];
-}
 
 export const Home = () => {
     const dispatch = useDispatch();
@@ -70,7 +54,6 @@ export const Home = () => {
         };
 
 
-        console.log('updatedCategoriesData:', updatedCategoriesData)
         dispatch(setUpdatedData(updatedCategoriesData))
         setEnabledCategories(updatedCategories);
         setOriginalCategories(updatedCategories);
@@ -91,6 +74,21 @@ export const Home = () => {
     return (
         <>
             <Center>
+                <Box
+                    display='flex'
+                    alignItems='center'
+                    h='50vh'
+                >
+
+                    {!enabledCategories.length ? (
+
+                        <div className="no-data-card">
+                            No card data found.
+                        </div>
+                    ) : null
+
+                    }
+                </Box>
 
                 <SimpleGrid
                     columns={{ base: 1, md: 2, lg: 3 }}

@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.no-data-card {
+  background-color: #f5f5f5;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  box-shadow: 0 2px 43px -4px rgba(0, 0, 0, .19)
+}
